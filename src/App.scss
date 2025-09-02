@@ -1,8 +1,25 @@
 .main-container{
     padding: 20px;
-    width: fit-content;
+}
+
+.form{
+  width: fit-content;
+}
+
+.form-item{
+  padding-top: 15px;
+}
+
+.form-header{
+  padding-top: 30px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .form-label{
-  padding-top: 20px;
+  font-weight: normal;
+}
+
+.form-label,.form-check-label{
+  font-size: 16px;
 }

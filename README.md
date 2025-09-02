@@ -10,7 +10,7 @@
 - Weapon modifiers:
   - No distractions: 35%
   - Suros synergy: 20%
-- Armor modifiers
+- Armor/Class modifiers
   - Unflinching mods: 1 = 25%, 2 = 30%, 3 = 35%
   - Wings of sacred dawn: 25%
-- Rally barricade: 50%
+  - Rally barricade: 50%

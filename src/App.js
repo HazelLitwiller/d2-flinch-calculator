@@ -1,27 +1,14 @@
 import "./App.scss";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
+import { weaponTypeFlinch, weaponTypes, unflinchMods } from "./data/formData";
 
 function App() {
-  const weaponTypeFlinch = {
-    0.75: ["autoRifle", "bow", "submachineGun"],
-    0.8: ["machineGun", "pulseRifle", "scoutRifle", "sidearm"],
-    0.85: ["handCannon", "traceRifle"],
-    0.9: [
-      "fusionRifle",
-      "grenadeLauncher",
-      "linearFusionRifle",
-      "shotgun",
-      "sniperRifle",
-      "rocketLauncher",
-    ],
-  };
-
-  const [weaponType, setWeaponType] = useState("autoRifle");
+  const [weaponType, setWeaponType] = useState(weaponTypes[0]);
   const [flinchVals, setFlinchVals] = useState({
     weaponType: Object.keys(weaponTypeFlinch).find((key) =>
-          weaponTypeFlinch[key].includes(weaponType)
-        ),
+      weaponTypeFlinch[key].includes(weaponType)
+    ),
     stab: 0,
     noDS: 1,
     surosSyn: 1,
@@ -30,86 +17,188 @@ function App() {
     rally: 1,
   });
 
-  
   const handleWeaponTypeChange = (e) => {
     setWeaponType(e.target.value);
     setFlinchVals((prev) => ({
       ...prev,
-      weaponType:
-        Object.keys(weaponTypeFlinch).find((key) =>
-          weaponTypeFlinch[key].includes(e.target.value)
-        ),
+      weaponType: Object.keys(weaponTypeFlinch).find((key) =>
+        weaponTypeFlinch[key].includes(e.target.value)
+      ),
     }));
   };
 
-  const [stabVal, setStabVal] = useState(0);
+  const [stabVal, setStabVal] = useState(20);
   const handleStabChange = (e) => {
     const inputValue = e.target.value;
-    if (inputValue === "" || /^-?\d+$/.test(inputValue)) {
+    if (inputValue === "") {
       setStabVal(inputValue);
-      if (/^-?\d+$/.test(inputValue)) {
-        setFlinchVals((prev) => ({
-          ...prev,
-          stab: (Math.max(0,parseInt(inputValue) - 20)) * (1 / 80),
-        }));
-      }
+    } else if (/^-?\d+$/.test(inputValue)) {
+      let clampedVal = Math.min(parseInt(inputValue), 100);
+      setStabVal(clampedVal);
+      setFlinchVals((prev) => ({
+        ...prev,
+        stab: Math.max(0, parseInt(clampedVal) - 20) * (1 / 80),
+      }));
     }
+  };
+
+  const [noDisVal, setNoDisVal] = useState(false);
+  const handleNoDisChange = (e) => {
+    setNoDisVal(e.target.checked);
+    setFlinchVals((prev) => ({
+      ...prev,
+      noDS: e.target.checked ? 0.65 : 1,
+    }));
+  };
+
+  const [surosSynVal, setSurosSynVal] = useState(false);
+  const handleSurosSynChange = (e) => {
+    setSurosSynVal(e.target.checked);
+    setFlinchVals((prev) => ({
+      ...prev,
+      surosSyn: e.target.checked ? 0.8 : 1,
+    }));
+  };
+
+  const [unflinchModsVal, setUnflichModsVal] = useState(0);
+  const handleUnflinchModsChange = (e) => {
+    setUnflichModsVal(e.target.value);
+    setFlinchVals((prev) => ({
+      ...prev,
+      unflinchMod: unflinchMods[e.target.value],
+    }));
+  };
+
+  const [wingsVal, setWingsVal] = useState(false);
+  const handleWingsChange = (e) => {
+    setWingsVal(e.target.checked);
+    setFlinchVals((prev) => ({
+      ...prev,
+      wings: e.target.checked ? 0.75 : 1,
+    }));
+  };
+
+  const [rallyVal, setRallyVal] = useState(false);
+  const handleRallyChange = (e) => {
+    setRallyVal(e.target.checked);
+    setFlinchVals((prev) => ({
+      ...prev,
+      rally: e.target.checked ? 0.5 : 1,
+    }));
   };
 
   const [resultFlinch, setResultFlinch] = useState((0).toFixed(2));
 
   useEffect(() => {
     const calculateFlinch = () => {
-      let tempResultFlinch = 1 - (flinchVals.stab * (1 - flinchVals.weaponType));
+      let tempResultFlinch = 1 - flinchVals.stab * (1 - flinchVals.weaponType);
+      console.log("base: ", tempResultFlinch);
       for (const key in flinchVals) {
-        if (!["stab","weaponType"].includes(key)) {
+        if (!["stab", "weaponType"].includes(key)) {
           tempResultFlinch *= flinchVals[key];
         }
       }
       console.log("all: ", flinchVals);
-      setResultFlinch(Math.max((1 - tempResultFlinch) * 100, 0).toFixed(2));
+      setResultFlinch(
+        Math.min(Math.max((1 - tempResultFlinch) * 100, 0), 100).toFixed(2)
+      );
     };
     calculateFlinch();
   }, [flinchVals]);
 
   return (
     <div className="main-container">
-      <Form.Label className="form-label" htmlFor="weaponType">
-        Weapon Type
-      </Form.Label>
-      <Form.Select
-        id="weaponType"
-        value={weaponType}
-        onChange={handleWeaponTypeChange}
+      <h2
+        style={{
+          backgroundImage: "linear-gradient(#f3969a,#78c2ad)",
+          color: "transparent",
+          backgroundClip: "text",
+        }}
       >
-        <option value="autoRifle">Auto Rifle</option>
-        <option value="bow">Bow</option>
-        <option value="fusionRifle">Fusion Rifle</option>
-        <option value="grenadeLauncher">Grenade Launcher</option>
-        <option value="handCannon">Hand Cannon</option>
-        <option value="linearFusionRifle">Linear Fusion Rifle</option>
-        <option value="machineGun">Machine Gun</option>
-        <option value="pulseRifle">Pulse Rifle</option>
-        <option value="rocketLauncher">Rocket Launcher</option>
-        <option value="scoutRifle">Scout Rifle</option>
-        <option value="shotgun">Shotgun</option>
-        <option value="sidearm">Sidearm</option>
-        <option value="sniperRifle">Sniper Rifle</option>
-        <option value="submachineGun">Submachine Gun</option>
-        <option value="traceRifle">Trace Rifle</option>
-      </Form.Select>
-      <Form.Label className="form-label" htmlFor="stabVal">
-        Stability
-      </Form.Label>
-      <Form.Control
-        type="text"
-        id="stabVal"
-        value={stabVal}
-        min={0}
-        max={100}
-        onChange={handleStabChange}
-      />
-      <p>Total flinch reduction {resultFlinch}%</p>
+        Destiny 2 Flinch Calculator
+      </h2>
+      <Form className="form">
+        <p className="form-header">Weapon Stats</p>
+        <Form.Label htmlFor="weaponType">Weapon Type</Form.Label>
+        <Form.Select
+          id="weaponType"
+          value={weaponType}
+          onChange={handleWeaponTypeChange}
+        >
+          {weaponTypes.map((type) => (
+            <option key={type} value={type}>
+              {type.replace(/([A-Z])/g, " $1").trim()}
+            </option>
+          ))}
+        </Form.Select>
+        <Form.Label className="form-item" htmlFor="stabVal">
+          Stability
+        </Form.Label>
+        <Form.Control
+          type="text"
+          id="stabVal"
+          value={stabVal}
+          min={0}
+          max={100}
+          onChange={handleStabChange}
+        />
+
+        <p className="form-header">Weapon Modifiers</p>
+        <Form.Check
+          type="checkbox"
+          checked={noDisVal}
+          label="No distractions"
+          onChange={handleNoDisChange}
+        />
+        <Form.Check
+          type="checkbox"
+          checked={surosSynVal}
+          label="Suros synergy"
+          onChange={handleSurosSynChange}
+        />
+
+        <p className="form-header">Armor/Class Modifiers</p>
+        <Form.Label htmlFor="unflinchMods">Unflinching mods</Form.Label>
+        <Form.Select
+          id="unflinchMods"
+          value={unflinchModsVal}
+          onChange={handleUnflinchModsChange}
+        >
+          {Object.keys(unflinchMods).map((key) => (
+            <option key={key} value={key}>
+              {key}
+            </option>
+          ))}
+        </Form.Select>
+        <Form.Check
+          className="form-item"
+          type="checkbox"
+          checked={wingsVal}
+          label="Wings of sacred dawn"
+          onChange={handleWingsChange}
+        />
+        <Form.Check
+          type="checkbox"
+          checked={rallyVal}
+          label="Rally barricade"
+          onChange={handleRallyChange}
+        />
+      </Form>
+
+      <h3
+        style={{
+          marginTop: "30px",
+          padding: "15px 0",
+          float: "left",
+          width: "fit-content",
+          borderTop: "4px solid transparent",
+          borderBottom: "4px solid transparent",
+          background:
+            "linear-gradient(white, white) padding-box, linear-gradient(to right, #f3969a,#78c2ad) border-box",
+        }}
+      >
+        Total flinch reduction: {resultFlinch}%
+      </h3>
     </div>
   );
 }
