@@ -320,7 +320,7 @@ function FlinchForm() {
       <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
         <h3
           style={{
-            marginTop: "60px",
+            marginTop: "50px",
             width: "fit-content",
             border: "1px solid #008CBA",
             padding: "15px",

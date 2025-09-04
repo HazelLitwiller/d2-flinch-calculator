@@ -4,7 +4,7 @@ import Accordion from "react-bootstrap/Accordion";
 function FlinchWiki() {
   return (
     <div className="main-container">
-      <h2>Wiki</h2>
+      <h2 style={{paddingBottom:"15px"}}>Wiki</h2>
       <Accordion className="mb-3">
         <Accordion.Item eventKey="0">
           <Accordion.Header>How does this calculator work?</Accordion.Header>
