@@ -2,15 +2,35 @@
 
 ## Flinch factors
 - Health stat: Gain up to a 10% bonus at 100 health stat (0.1% gained per point)
-- Weapon tier:
-  - Tier 1 (Auto, Bow, SMG): 25%
-  - Tier 2 (LMG, Pulse, Scout, Sidearm): 20%
-  - Tier 3 (Hand cannon, Trace rifle): 15%
-  - Tier 4 (Fusion, Grenade launcher, Linear fusion, Shotgun, Sniper, Rocket): 10%
+- Weapon tier (based on stability starting at 20):
+  - Tier 1 (Auto Rifle, Bow, Submachine Gun): up to 25%
+  - Tier 2 (Machine Gun, Pulse Rifle, Scout Rifle, Sidearm): up to 20%
+  - Tier 3 (Hand Cannon, Trace Rifle): up to 15%
+  - Tier 4 (Fusion Rifle, Grenade Launcher, Linear Fusion, Shotgun, Sniper Rifle, Rocket Launcher): up to 10%
 - Weapon modifiers:
-  - No distractions: 35%
-  - Suros synergy: 20%
+  - D.A.R.C.I Target Acquired perk: 50%
+  - No Distractions perk: 35%
+  - Perfect Float perk: 35%
+  - Suros Synergy origin trait: 20%
+  - Disaster Plan origin trait: 15%
+  - Anti-Flinch mod: 15% (enhanced = 20%)
+  - Heavy Burst frame: 10%
 - Armor/Class modifiers
   - Unflinching mods: 1 = 25%, 2 = 30%, 3 = 35%
-  - Wings of sacred dawn: 25%
-  - Rally barricade: 50%
+  - Wings of Sacred Dawn: 25%
+  - Rally Barricade: 50%
+- Have an unknown/variable impact on flinch
+  - A stability value less than 20
+  - Built to Blast perk
+  - Celerity perk
+  - Zen Moment perk
+  - Red Death's Inverse Relationship perk
+  - Still Hunt's Golden Gun mode
+  - Hit by the High-Caliber Rounds mag perk
+  - Hit by the Seraph Rounds mag perk
+  - Subjugation origin trait
+  - Rapid Precision Rifling artifact perk
+  - Cyrtarachne's Facade Acrobat's Focus perk
+  - Lustrous armor 2 piece set bonus
+  - Hit by the Stasis slow effect
+- For more details, check out the [Destiny Data Compendium](https://docs.google.com/spreadsheets/d/1WaxvbLx7UoSZaBqdFr1u32F2uWVLo-CJunJB4nlGUE4)
