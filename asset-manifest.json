@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/d2-flinch-calculator/static/css/main.c728467e.css",
+    "main.js": "/d2-flinch-calculator/static/js/main.22a940eb.js",
+    "static/js/453.cb9d9016.chunk.js": "/d2-flinch-calculator/static/js/453.cb9d9016.chunk.js",
+    "index.html": "/d2-flinch-calculator/index.html",
+    "main.c728467e.css.map": "/d2-flinch-calculator/static/css/main.c728467e.css.map",
+    "main.22a940eb.js.map": "/d2-flinch-calculator/static/js/main.22a940eb.js.map",
+    "453.cb9d9016.chunk.js.map": "/d2-flinch-calculator/static/js/453.cb9d9016.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c728467e.css",
+    "static/js/main.22a940eb.js"
+  ]
+}
