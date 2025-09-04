@@ -1,5 +1,7 @@
 # Destiny 2 Flinch Calculator
 
+A flinch calculator for the FPS game Destiny 2, built with React and Bootstrap.
+
 ## Flinch factors
 - Health stat: Gain up to a 10% bonus at 100 health stat (0.1% gained per point)
 - Weapon tier (based on stability starting at 20):
