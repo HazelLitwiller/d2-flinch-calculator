@@ -7,6 +7,9 @@ import {
   unflinchMods,
   flinchModifiers,
 } from "../../data/formData.js";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function FlinchForm() {
   const [weaponType, setWeaponType] = useState(weaponTypes[0]);
@@ -163,157 +166,171 @@ function FlinchForm() {
 
   return (
     <>
-      <Form className="form">
-        <p className="form-header text-primary">Weapon Stats</p>
-        <Form.Label htmlFor="weaponType">Weapon Type</Form.Label>
-        <Form.Select
-          id="weaponType"
-          value={weaponType}
-          onChange={handleWeaponTypeChange}
+      <Container>
+        <Form className="form">
+          <Row className="justify-content-md-center gx-5">
+            <Col md="auto">
+              <p className="form-header text-primary">Weapon Stats</p>
+              <Form.Label htmlFor="weaponType">Weapon Type</Form.Label>
+              <Form.Select
+                id="weaponType"
+                value={weaponType}
+                onChange={handleWeaponTypeChange}
+              >
+                {weaponTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type.replace(/([A-Z])/g, " $1").trim()}
+                  </option>
+                ))}
+              </Form.Select>
+              <Form.Label className="form-item" htmlFor="stabVal">
+                Stability
+              </Form.Label>
+              <Form.Control
+                type="text"
+                id="stabVal"
+                value={stabVal}
+                min={0}
+                max={100}
+                onChange={handleStabChange}
+              />
+            </Col>
+            <Col md="auto">
+              <p className="form-header text-primary">Weapon Modifiers</p>
+              <Form.Label className="text-secondary">Perks</Form.Label>
+              <Form.Check
+                id="noDis"
+                type="checkbox"
+                checked={noDisVal}
+                label="No Distractions"
+                onChange={handleCheckboxChange}
+                className="form-indent"
+              />
+              <Form.Check
+                id="perfectFloat"
+                type="checkbox"
+                checked={perfectFloatVal}
+                label="Perfect Float"
+                onChange={handleCheckboxChange}
+                className="form-indent"
+              />
+              <Form.Check
+                id="darciPerk"
+                type="checkbox"
+                checked={darciVal}
+                label="D.A.R.C.I. Target Acquired"
+                onChange={handleCheckboxChange}
+                className="form-indent"
+              />
+              <Form.Label className="form-item text-secondary">
+                Origin Traits
+              </Form.Label>
+              <Form.Check
+                id="disasterPlan"
+                type="checkbox"
+                checked={disasterPlanVal}
+                label="Disaster Plan"
+                onChange={handleCheckboxChange}
+                className="form-indent"
+              />
+              <Form.Check
+                id="surosSyn"
+                type="checkbox"
+                checked={surosSynVal}
+                label="Suros Synergy"
+                onChange={handleCheckboxChange}
+                className="form-indent"
+              />
+              <Form.Label className="form-item text-secondary">
+                Frames/Mods
+              </Form.Label>
+              <Form.Check
+                id="heavyBurst"
+                type="checkbox"
+                checked={heavyBurstVal}
+                label="Heavy 
+                    Burst frame"
+                onChange={handleCheckboxChange}
+                className="form-indent"
+              />
+              <Form.Label
+                className="form-item form-indent"
+                htmlFor="antiFlinch"
+              >
+                Anti-Flinch mods
+              </Form.Label>
+              <Form.Select
+                id="antiFlinch"
+                value={antiFlinchVal}
+                onChange={handleAntiFlinchChange}
+                className="form-indent"
+              >
+                {Object.keys(unflinchMods.weapon).map((key) => (
+                  <option key={key} value={key}>
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </option>
+                ))}
+              </Form.Select>
+            </Col>
+            <Col md="auto">
+              <p className="form-header text-primary">Armor/Class Modifiers</p>
+              <Form.Label htmlFor="healthVal">Health stat</Form.Label>
+              <Form.Control
+                type="text"
+                id="healthVal"
+                value={healthVal}
+                min={0}
+                max={100}
+                onChange={handleHealthChange}
+              />
+
+              <Form.Label className="form-item" htmlFor="unflinchMods">
+                Unflinching mods
+              </Form.Label>
+              <Form.Select
+                id="unflinchMods"
+                value={unflinchModsVal}
+                onChange={handleUnflinchModsChange}
+              >
+                {Object.keys(unflinchMods.armor).map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </Form.Select>
+              <Form.Check
+                id="wings"
+                className="form-item"
+                type="checkbox"
+                checked={wingsVal}
+                label="Wings of Sacred Dawn"
+                onChange={handleCheckboxChange}
+              />
+              <Form.Check
+                id="rally"
+                type="checkbox"
+                checked={rallyVal}
+                label="Rally Barricade"
+                onChange={handleCheckboxChange}
+              />
+            </Col>
+          </Row>
+        </Form>
+      </Container>
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <h3
+          style={{
+            marginTop: "60px",
+            width: "fit-content",
+            border: "1px solid #008CBA",
+            padding: "15px",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
         >
-          {weaponTypes.map((type) => (
-            <option key={type} value={type}>
-              {type.replace(/([A-Z])/g, " $1").trim()}
-            </option>
-          ))}
-        </Form.Select>
-        <Form.Label className="form-item" htmlFor="stabVal">
-          Stability
-        </Form.Label>
-        <Form.Control
-          type="text"
-          id="stabVal"
-          value={stabVal}
-          min={0}
-          max={100}
-          onChange={handleStabChange}
-        />
-
-        <p className="form-header text-primary">Weapon Modifiers</p>
-        <Form.Label className="text-secondary">Perks</Form.Label>
-        <Form.Check
-          id="noDis"
-          type="checkbox"
-          checked={noDisVal}
-          label="No Distractions"
-          onChange={handleCheckboxChange}
-          className="form-indent"
-        />
-        <Form.Check
-          id="perfectFloat"
-          type="checkbox"
-          checked={perfectFloatVal}
-          label="Perfect Float"
-          onChange={handleCheckboxChange}
-          className="form-indent"
-        />
-        <Form.Check
-          id="darciPerk"
-          type="checkbox"
-          checked={darciVal}
-          label="D.A.R.C.I. Target Acquired"
-          onChange={handleCheckboxChange}
-          className="form-indent"
-        />
-        <Form.Label className="form-item text-secondary">
-          Origin Traits
-        </Form.Label>
-        <Form.Check
-          id="disasterPlan"
-          type="checkbox"
-          checked={disasterPlanVal}
-          label="Disaster Plan"
-          onChange={handleCheckboxChange}
-          className="form-indent"
-        />
-        <Form.Check
-          id="surosSyn"
-          type="checkbox"
-          checked={surosSynVal}
-          label="Suros Synergy"
-          onChange={handleCheckboxChange}
-          className="form-indent"
-        />
-        <Form.Label className="form-item text-secondary">Frames/Mods</Form.Label>
-        <Form.Check
-          id="heavyBurst"
-          type="checkbox"
-          checked={heavyBurstVal}
-          label="Heavy 
-            Burst frame"
-          onChange={handleCheckboxChange}
-          className="form-indent"
-        />
-        <Form.Label className="form-item form-indent" htmlFor="antiFlinch">
-          Anti-Flinch mods
-        </Form.Label>
-        <Form.Select
-          id="antiFlinch"
-          value={antiFlinchVal}
-          onChange={handleAntiFlinchChange}
-          className="form-indent"
-        >
-          {Object.keys(unflinchMods.weapon).map((key) => (
-            <option key={key} value={key}>
-              {key.charAt(0).toUpperCase() + key.slice(1)}
-            </option>
-          ))}
-        </Form.Select>
-
-        <p className="form-header text-primary">Armor/Class Modifiers</p>
-        <Form.Label htmlFor="healthVal">Health stat</Form.Label>
-        <Form.Control
-          type="text"
-          id="healthVal"
-          value={healthVal}
-          min={0}
-          max={100}
-          onChange={handleHealthChange}
-        />
-
-        <Form.Label className="form-item" htmlFor="unflinchMods">
-          Unflinching mods
-        </Form.Label>
-        <Form.Select
-          id="unflinchMods"
-          value={unflinchModsVal}
-          onChange={handleUnflinchModsChange}
-        >
-          {Object.keys(unflinchMods.armor).map((key) => (
-            <option key={key} value={key}>
-              {key}
-            </option>
-          ))}
-        </Form.Select>
-        <Form.Check
-          id="wings"
-          className="form-item"
-          type="checkbox"
-          checked={wingsVal}
-          label="Wings of Sacred Dawn"
-          onChange={handleCheckboxChange}
-        />
-        <Form.Check
-          id="rally"
-          type="checkbox"
-          checked={rallyVal}
-          label="Rally Barricade"
-          onChange={handleCheckboxChange}
-        />
-      </Form>
-
-      <h3
-        style={{
-          marginTop: "30px",
-          marginBottom: "50px",
-          width: "fit-content",
-          border: "1px solid #008CBA",
-          padding: "10px",
-          borderRadius: "5px",
-        }}
-      >
-        Total flinch reduction: {resultFlinch}%
-      </h3>
+          Total flinch reduction: {resultFlinch}%
+        </h3>
+      </div>
     </>
   );
 }
